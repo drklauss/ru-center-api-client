@@ -1,14 +1,14 @@
 <?php
 
-namespace Ns\RuCenterApi\entities;
+namespace RuCenterApi\entities;
 
-use Ns\RuCenterApi\Helper;
+use RuCenterApi\Helper;
 
 /**
  * Class ExpiringDomain
- * Домен, требующий продления
+ * Услуга, требующая продления
  */
-class ExpiringDomain
+class ExpiringService
 {
     /**
      * Флаг продления услуги
@@ -61,9 +61,9 @@ class ExpiringDomain
     public $serviceState;
 
     /**
-     * Создает и возвращает массив экземпляров класса OverdueService
+     * Создает и возвращает массив экземпляров текущего класса
      * @param  array $data
-     * @return ExpiringDomain[]
+     * @return ExpiringService[]
      */
     public static function createFromArray(array $data)
     {

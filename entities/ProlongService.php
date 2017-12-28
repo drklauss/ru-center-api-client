@@ -1,6 +1,6 @@
 <?php
 
-namespace Ns\RuCenterApi\entities;
+namespace RuCenterApi\entities;
 
 /**
  * Class ProlongService
@@ -25,18 +25,4 @@ class ProlongService
      * @var string
      */
     public $prolong;
-
-    /**
-     * Создает и возвращает массив экземпляров класса OverdueService
-     * @return string
-     */
-    public static function getRequestBlock()
-    {
-        $requestStr = '';
-
-
-        return $overdueServices;
-    }
-
-
 }

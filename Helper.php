@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Ns\RuCenterApi;
+namespace RuCenterApi;
 
 use DateTime;
 
@@ -76,7 +76,7 @@ class Helper
 
     /**
      * Коррекция стоимости услуги
-     * @param $sum
+     * @param string $sum
      * @return int
      */
     public static function correctServiceSum($sum)

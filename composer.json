@@ -11,8 +11,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "Ns\\RuCenterApi\\": "",
-      "Ns\\RuCenterApi\\Tests\\": "tests/"
+      "RuCenterApi\\": "",
+      "RuCenterApi\\Tests\\": "tests/"
     }
   },
   "require-dev": {
