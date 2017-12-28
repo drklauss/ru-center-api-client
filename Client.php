@@ -5,15 +5,14 @@ namespace Ns\RuCenterApi;
 use Ns\RuCenterApi\entities\ExpiringDomain;
 use Ns\RuCenterApi\entities\ProlongService;
 
+/**
+ * RuCenterApi SimpleRequest Api Client
+ */
 class Client
 {
-    /** @var array */
     private $cUrlDefaultOptions;
     private $login;
     private $password;
-
-    public static $TEST_LOGIN = '370/NIC-REG';
-    public static $TEST_PASSWORD = 'dogovor';
 
     public function __construct($login, $password)
     {

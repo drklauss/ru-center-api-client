@@ -1,11 +1,11 @@
 {
-  "name": "nodasoft/ru-center-api-client",
+  "name": "drklauss/ru-center-api-client",
   "description": "RuCenter Api Client Library",
   "license": "GPL-3.0",
   "authors": [
     {
-      "name": "abcpDev",
-      "email": "we@nodasoft.com"
+      "name": "drklauss",
+      "email": "dr.klauss@gmail.com"
     }
   ],
   "autoload": {
