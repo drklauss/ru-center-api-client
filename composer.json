@@ -1,0 +1,21 @@
+{
+  "name": "nodasoft/ru-center-api-client",
+  "description": "RuCenter Api Client Library",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "abcpDev",
+      "email": "we@nodasoft.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Ns\\RuCenterApi\\": "",
+      "Ns\\RuCenterApi\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.2",
+    "symfony/var-dumper": "^3.4"
+  }
+}
