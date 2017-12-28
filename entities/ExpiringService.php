@@ -73,7 +73,7 @@ class ExpiringService
             $overdueService->prolongFlag = isset($oneService['prolong-flag']) ? (int) $oneService['prolong-flag'] : null;
             $overdueService->extensionAmount = isset($oneService['sum']) ? Helper::correctServiceSum($oneService['sum']) : null;
             $overdueService->domain = isset($oneService['domain']) ? $oneService['domain'] : null;
-            $overdueService->domainIDN = isset($oneService['idn-domain']) ? $oneService['idn-domain'] : null;
+            $overdueService->domainIDN = isset($oneService['idn-domain']) ? iconv('KOI8-R', 'UTF-8', $oneService['idn-domain']) : null;
             $overdueService->periodStartDate = isset($oneService['period-start-date']) ? $oneService['period-start-date'] : null;
             $overdueService->periodEndDate = isset($oneService['period-end-date']) ? $oneService['period-end-date'] : null;
             $overdueService->serviceId = isset($oneService['service-id']) ? (int) $oneService['service-id'] : null;
