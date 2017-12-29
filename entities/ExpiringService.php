@@ -37,16 +37,22 @@ class ExpiringService
     public $domainIDN;
 
     /**
-     * Начало действия услуги в формате DD.MM.YYYY
+     * Начало действия новой услуги в формате DD.MM.YYYY
      * @var string
      */
     public $periodStartDate;
 
     /**
-     * Окончание действия услуги в формате DD.MM.YYYY
+     * Окончание действия новой услуги в формате DD.MM.YYYY
      * @var string
      */
     public $periodEndDate;
+
+    /**
+     * Текущая услуга оплачена по... в формате DD.MM.YYYY
+     * @var string
+     */
+    public $payedTill;
 
     /**
      * Внутренний ID услуги
@@ -76,6 +82,7 @@ class ExpiringService
             $overdueService->domainIDN = isset($oneService['idn-domain']) ? iconv('KOI8-R', 'UTF-8', $oneService['idn-domain']) : null;
             $overdueService->periodStartDate = isset($oneService['period-start-date']) ? $oneService['period-start-date'] : null;
             $overdueService->periodEndDate = isset($oneService['period-end-date']) ? $oneService['period-end-date'] : null;
+            $overdueService->payedTill = isset($oneService['payed-till']) ? $oneService['payed-till'] : null;
             $overdueService->serviceId = isset($oneService['service-id']) ? (int) $oneService['service-id'] : null;
             $overdueService->serviceState = isset($oneService['service-state']) ? (int) $oneService['service-state'] : null;
             if ($overdueService->isValid()) {
