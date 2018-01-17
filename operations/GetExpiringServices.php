@@ -30,7 +30,7 @@ class GetExpiringServices extends Operation
         $requestBlock = [
             'state' => 0, // ищем неоплаченные только
             'service' => 'domain', // тип услуги "Домен"
-            'service-objects-limit' => 1000, // Лимит на получение - 1000
+            'services-limit' => 1000, // Лимит на получение - 1000
         ];
         $header = Helper::getBlock($headerBlock);
         $body = Helper::getBlock($requestBlock, 'service');
