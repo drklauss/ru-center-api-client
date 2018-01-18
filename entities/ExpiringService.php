@@ -2,6 +2,7 @@
 
 namespace RuCenterApi\entities;
 
+use DateTime;
 use RuCenterApi\Helper;
 
 /**
@@ -37,20 +38,20 @@ class ExpiringService
     public $domainIDN;
 
     /**
-     * Начало действия новой услуги в формате DD.MM.YYYY
-     * @var string
+     * Начало действия новой услуги
+     * @var DateTime
      */
     public $periodStartDate;
 
     /**
-     * Окончание действия новой услуги в формате DD.MM.YYYY
-     * @var string
+     * Окончание действия новой услуги
+     * @var DateTime
      */
     public $periodEndDate;
 
     /**
-     * Текущая услуга оплачена по... в формате DD.MM.YYYY
-     * @var string
+     * Текущая услуга оплачена по...
+     * @var DateTime
      */
     public $payedTill;
 
@@ -80,9 +81,9 @@ class ExpiringService
             $overdueService->extensionAmount = isset($oneService['sum']) ? Helper::correctServiceSum($oneService['sum']) : null;
             $overdueService->domain = isset($oneService['domain']) ? $oneService['domain'] : null;
             $overdueService->domainIDN = isset($oneService['idn-domain']) ? iconv('KOI8-R', 'UTF-8', $oneService['idn-domain']) : null;
-            $overdueService->periodStartDate = isset($oneService['period-start-date']) ? $oneService['period-start-date'] : null;
-            $overdueService->periodEndDate = isset($oneService['period-end-date']) ? $oneService['period-end-date'] : null;
-            $overdueService->payedTill = isset($oneService['payed-till']) ? $oneService['payed-till'] : null;
+            $overdueService->periodStartDate = isset($oneService['period-start-date']) ? DateTime::createFromFormat('d.m.Y', $oneService['period-start-date']) : null;
+            $overdueService->periodEndDate = isset($oneService['period-end-date']) ? DateTime::createFromFormat('d.m.Y', $oneService['period-end-date']) : null;
+            $overdueService->payedTill = isset($oneService['payed-till']) ? DateTime::createFromFormat('d.m.Y', $oneService['payed-till']) : null;
             $overdueService->serviceId = isset($oneService['service-id']) ? (int) $oneService['service-id'] : null;
             $overdueService->serviceState = isset($oneService['service-state']) ? (int) $oneService['service-state'] : null;
             if ($overdueService->isValid()) {
