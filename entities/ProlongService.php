@@ -22,7 +22,7 @@ class ProlongService
 
     /**
      * Поле, определяющее срок, на который будет продлена услуга
-     * @var string
+     * @var int
      */
-    public $prolong;
+    public $prolong = 1;
 }

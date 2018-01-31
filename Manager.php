@@ -54,7 +54,7 @@ class Manager
     /**
      * Продлевает услуги
      * @param ProlongService[] $prolongServices
-     * @return ExpiringService[]
+     * @return int
      */
     public function prolongServices($prolongServices)
     {
