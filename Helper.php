@@ -19,31 +19,6 @@ class Helper
     }
 
     /**
-     * Разбирает строку строку ответа сервиса RuCenter в массив
-     * @param string $result
-     * @return array
-     */
-    public static function getArrayResult($result)
-    {
-        $data = [];
-        $count = 0;
-        foreach (preg_split("/((\r?\n)|(\r\n?))/", $result) as $line) {
-            $matches = [];
-            if (preg_match('/[[a-z]*]/', $line, $matches)) {
-                $count++;
-            }
-            if (preg_match('/(\S*):(\S*)/', $line, $matches) && count($matches) === 3) {
-                if ($matches[2] === '') {
-                    continue;
-                }
-                $data[$count][$matches[1]] = $matches[2];
-            }
-        }
-
-        return $data;
-    }
-
-    /**
      * Возвращает строку для запроса
      * @param string $headerBlock
      * @param string $bodyBlock
@@ -51,7 +26,7 @@ class Helper
      */
     public static function getRequestString($headerBlock, $bodyBlock)
     {
-        return 'SimpleRequest=' . rawurlencode($headerBlock.$bodyBlock);
+        return 'SimpleRequest=' . rawurlencode($headerBlock . $bodyBlock);
     }
 
     /**
@@ -60,11 +35,11 @@ class Helper
      * @param string $blockName
      * @return string
      */
-    public static function getBlock($param, $blockName = ''){
+    public static function getBlock($param, $blockName = '')
+    {
         $block = '';
-        if (!empty($blockName)){
-
-        $block .= "\r\n[{$blockName}]\r\n";
+        if (!empty($blockName)) {
+            $block .= "\r\n[{$blockName}]\r\n";
         }
         foreach ($param as $k => $v) {
             $block .= "{$k}:{$v}\r\n";

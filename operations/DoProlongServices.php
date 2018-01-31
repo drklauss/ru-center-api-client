@@ -20,10 +20,10 @@ class DoProlongServices extends Operation
 
     /**
      * Сеттер услуг для продления
-     * @param $services
+     * @param ProlongService[] $services
      * @return DoProlongServices
      */
-    public function setProlongServices(ProlongService $services)
+    public function setProlongServices(array $services)
     {
         $this->prolongServices = $services;
 
@@ -32,7 +32,7 @@ class DoProlongServices extends Operation
 
     /**
      * Запускает операцию продления
-     * @return ExpiringService[]
+     * @return int
      */
     public function run()
     {
@@ -48,7 +48,7 @@ class DoProlongServices extends Operation
         ];
         $body = '';
         foreach ($this->prolongServices as $prolongService) {
-            $requestBlock[] = [
+            $requestBlock = [
                 'acc-rec' => $prolongService->serviceId, // ищем неоплаченные только
                 'action' => 'domain', // тип услуги "Домен"
                 'domain' => $prolongService->domain, // Лимит на получение - 1000
@@ -61,11 +61,22 @@ class DoProlongServices extends Operation
         $header = Helper::getBlock($headerBlock);
         curl_setopt($ch, CURLOPT_POSTFIELDS, Helper::getRequestString($header, $body));
         $result = curl_exec($ch);
-        echo $result;
-        exit;
         curl_close($ch);
-        $resArr = Helper::getArrayResult($result);
 
-        return $resArr;
+        return $this->getResponseCode($result);
+    }
+
+    /**
+     * Разбирает строку строку ответа сервиса в массив
+     * @param string $result
+     * @return int
+     */
+    private function getResponseCode($result)
+    {
+        if (preg_match('/State:\W(\d{3})/', $result, $matches) && count($matches) === 2) {
+            return (int) $matches[1];
+        }
+
+        return 500;
     }
 }
