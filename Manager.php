@@ -3,8 +3,8 @@
 namespace RuCenterApi;
 
 use RuCenterApi\entities\ExpiringService;
-use RuCenterApi\entities\ProlongService;
-use RuCenterApi\operations\DoProlongServices;
+use RuCenterApi\entities\ProlongDomain;
+use RuCenterApi\operations\DoProlongDomain;
 use RuCenterApi\operations\GetExpiringServices;
 
 /**
@@ -52,17 +52,17 @@ class Manager
     }
 
     /**
-     * Продлевает услуги
-     * @param ProlongService[] $prolongServices
+     * Продлевает услугу
+     * @param ProlongDomain $prolongDomain
      * @return int
      */
-    public function prolongServices($prolongServices)
+    public function prolongDomain($prolongDomain)
     {
-        $doProlong = new DoProlongServices();
+        $doProlong = new DoProlongDomain();
         return $doProlong->setLogin($this->login)
             ->setPassword($this->password)
             ->setDefaultCurlOpt($this->cUrlDefaultOptions)
-            ->setProlongServices($prolongServices)
+            ->setProlongDomain($prolongDomain)
             ->run();
     }
 }

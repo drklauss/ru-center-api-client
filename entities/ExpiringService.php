@@ -68,30 +68,37 @@ class ExpiringService
     public $serviceState;
 
     /**
+     * Контракт, к которому привязан домен
+     * @var string
+     */
+    public $subjectContract;
+
+    /**
      * Создает и возвращает массив экземпляров текущего класса
      * @param  array $data
      * @return ExpiringService[]
      */
     public static function createFromArray(array $data)
     {
-        $expiringDomains = [];
+        $expiringServices = [];
         foreach ($data as $oneService) {
-            $overdueService = new self();
-            $overdueService->prolongFlag = isset($oneService['prolong-flag']) ? (int) $oneService['prolong-flag'] : null;
-            $overdueService->extensionAmount = isset($oneService['sum']) ? Helper::correctServiceSum($oneService['sum']) : null;
-            $overdueService->domain = isset($oneService['domain']) ? $oneService['domain'] : null;
-            $overdueService->domainIDN = isset($oneService['idn-domain']) ? iconv('KOI8-R', 'UTF-8', $oneService['idn-domain']) : null;
-            $overdueService->periodStartDate = isset($oneService['period-start-date']) ? DateTime::createFromFormat('d.m.Y', $oneService['period-start-date']) : null;
-            $overdueService->periodEndDate = isset($oneService['period-end-date']) ? DateTime::createFromFormat('d.m.Y', $oneService['period-end-date']) : null;
-            $overdueService->payedTill = isset($oneService['payed-till']) ? DateTime::createFromFormat('d.m.Y', $oneService['payed-till']) : null;
-            $overdueService->serviceId = isset($oneService['service-id']) ? (int) $oneService['service-id'] : null;
-            $overdueService->serviceState = isset($oneService['service-state']) ? (int) $oneService['service-state'] : null;
-            if ($overdueService->isValid()) {
-                $expiringDomains[] = $overdueService;
+            $expiringService = new self();
+            $expiringService->prolongFlag = isset($oneService['prolong-flag']) ? (int) $oneService['prolong-flag'] : null;
+            $expiringService->extensionAmount = isset($oneService['sum']) ? Helper::correctServiceSum($oneService['sum']) : null;
+            $expiringService->domain = isset($oneService['domain']) ? $oneService['domain'] : null;
+            $expiringService->domainIDN = isset($oneService['idn-domain']) ? iconv('KOI8-R', 'UTF-8', $oneService['idn-domain']) : null;
+            $expiringService->periodStartDate = isset($oneService['period-start-date']) ? DateTime::createFromFormat('d.m.Y', $oneService['period-start-date']) : null;
+            $expiringService->periodEndDate = isset($oneService['period-end-date']) ? DateTime::createFromFormat('d.m.Y', $oneService['period-end-date']) : null;
+            $expiringService->payedTill = isset($oneService['payed-till']) ? DateTime::createFromFormat('d.m.Y', $oneService['payed-till']) : null;
+            $expiringService->serviceId = isset($oneService['service-id']) ? (int) $oneService['service-id'] : null;
+            $expiringService->serviceState = isset($oneService['service-state']) ? (int) $oneService['service-state'] : null;
+            $expiringService->subjectContract = isset($oneService['subject-contract']) ? $oneService['subject-contract'] : null;
+            if ($expiringService->isValid()) {
+                $expiringServices[] = $expiringService;
             }
         }
 
-        return $expiringDomains;
+        return $expiringServices;
     }
 
     /**

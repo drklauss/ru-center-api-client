@@ -3,29 +3,29 @@
 namespace RuCenterApi\operations;
 
 use RuCenterApi\entities\ExpiringService;
-use RuCenterApi\entities\ProlongService;
+use RuCenterApi\entities\ProlongDomain;
 use RuCenterApi\Helper;
 
 /**
  * Операция продления услуг
  * Теоретически возможно продление не только домена, а любой услуги
  */
-class DoProlongServices extends Operation
+class DoProlongDomain extends Operation
 {
     /**
-     * Услуги для продления
-     * @var ProlongService[]
+     * Услуга для продления
+     * @var ProlongDomain
      */
-    private $prolongServices;
+    private $prolongDomain;
 
     /**
      * Сеттер услуг для продления
-     * @param ProlongService[] $services
-     * @return DoProlongServices
+     * @param ProlongDomain $service
+     * @return DoProlongDomain
      */
-    public function setProlongServices(array $services)
+    public function setProlongDomain(ProlongDomain $service)
     {
-        $this->prolongServices = $services;
+        $this->prolongDomain = $service;
 
         return $this;
     }
@@ -41,23 +41,19 @@ class DoProlongServices extends Operation
         $headerBlock = [
             'lang' => 'ru',
             'login' => $this->login,
+            'subject-contract' => $this->prolongDomain->subjectContract,
             'password' => $this->password,
             'request' => 'order',
             'operation' => 'create',
             'request-id' => Helper::generateRequestId()
         ];
-        $body = '';
-        foreach ($this->prolongServices as $prolongService) {
-            $requestBlock = [
-                'acc-rec' => $prolongService->serviceId, // ищем неоплаченные только
-                'action' => 'domain', // тип услуги "Домен"
-                'domain' => $prolongService->domain, // Лимит на получение - 1000
-                'prolong' => $prolongService->prolong,
-                'service' => 'domain',
-                'template' => 'prolong',
-            ];
-            $body .= Helper::getBlock($requestBlock, 'order-item');
-        }
+        $requestBlock = [
+            'action' => 'prolong',
+            'service' => 'domain',
+            'domain' => $this->prolongDomain->domain,
+            'prolong' => $this->prolongDomain->prolong,
+        ];
+        $body = Helper::getBlock($requestBlock, 'order-item');
         $header = Helper::getBlock($headerBlock);
         curl_setopt($ch, CURLOPT_POSTFIELDS, Helper::getRequestString($header, $body));
         $result = curl_exec($ch);

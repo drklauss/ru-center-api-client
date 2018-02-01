@@ -3,16 +3,16 @@
 namespace RuCenterApi\entities;
 
 /**
- * Class ProlongService
- * Услуга, которая будет продлеваться
+ * Class ProlongDomain
+ * Домен, который будет продлеваться
  */
-class ProlongService
+class ProlongDomain
 {
     /**
-     * Внутренний ID услуги
+     * Контракт, к которому привязан домен
      * @var int
      */
-    public $serviceId;
+    public $subjectContract;
 
     /**
      * Название домена в верхнем регистре латинскими буквами или Punycode
@@ -21,7 +21,7 @@ class ProlongService
     public $domain;
 
     /**
-     * Поле, определяющее срок, на который будет продлена услуга
+     * Поле, определяющее срок, на который будет продлен домен
      * @var int
      */
     public $prolong = 1;
